@@ -20,6 +20,10 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
+    // Conexión a la base de datos por defecto (usuarios)
+    protected $connection = 'mysql';
+
     /**
      * The attributes that are mass assignable.
      *
