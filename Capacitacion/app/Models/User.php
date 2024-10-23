@@ -31,6 +31,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'google_id',
         'email',
         'password',
     ];
@@ -67,5 +68,38 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+     // Relación de muchos a muchos con los roles
+     public function roles()
+     {
+         return $this->belongsToMany(Role::class, 'user_roles');
+     }
+     // Relación de muchos a muchos con secciones a través de roles
+    public function sections()
+    {
+        return $this->hasManyThrough(Section::class, Role::class, 'id', 'id', 'role_id', 'section_id');
+    }
+
+    // Método para verificar si un usuario tiene un rol específico
+    public function hasRole($roleName)
+    {
+        return $this->roles()->where('name', $roleName)->exists();
+    }
+
+    // Método para verificar si un usuario tiene un permiso específico
+    public function hasPermission($permission)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->hasPermission($permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

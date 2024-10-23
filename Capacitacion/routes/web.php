@@ -15,3 +15,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+// Ruta para redirigir a Google
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
+
+// Ruta de callback de Google
+Route::get('auth/callback/google', [LoginController::class, 'handleGoogleCallback']);
