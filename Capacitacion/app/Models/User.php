@@ -22,7 +22,7 @@ class User extends Authenticatable
 
 
     // Conexión a la base de datos por defecto (usuarios)
-    protected $connection = 'mysql';
+    protected $connection = 'mysql'; // Usar la base de datos de usuarios
 
     /**
      * The attributes that are mass assignable.

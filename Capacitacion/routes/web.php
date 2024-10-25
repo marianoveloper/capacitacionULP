@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GoogleController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -15,8 +18,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-// Ruta para redirigir a Google
-Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 
-// Ruta de callback de Google
-Route::get('auth/callback/google', [LoginController::class, 'handleGoogleCallback']);
+
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+Route::controller(GoogleController::class)->group(function(){
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+});

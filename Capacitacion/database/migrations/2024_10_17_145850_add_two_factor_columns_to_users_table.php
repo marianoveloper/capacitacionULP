@@ -7,6 +7,7 @@ use Laravel\Fortify\Fortify;
 
 return new class extends Migration
 {
+    protected $connection = 'mysql'; // Usar la base de datos de usuarios
     /**
      * Run the migrations.
      */

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
     use HasFactory;
-
+    protected $connection = 'mysql'; // Usar la base de datos de usuarios
     // Relación de muchos a muchos con roles
     public function roles()
     {

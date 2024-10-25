@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    protected $connection = 'mysql'; // Usar la base de datos de usuarios
      // Relación de muchos a muchos con los usuarios
      public function users()
      {
