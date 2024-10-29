@@ -62,7 +62,7 @@ return [
             ]) : [],
         ],
         //conexion para capacitaciones
-        'capacitaciones' => [
+        'mysql_capacitaciones' => [
             'driver' => 'mysql',
             'url' => env('DB_URL_CAP'),
             'host' => env('DB_HOST_CAP', '127.0.0.1'),
@@ -82,7 +82,7 @@ return [
             ]) : [],
         ],
          //conexion para aulas
-         'aulas' => [
+         'mysql_aulas' => [
             'driver' => 'mysql',
             'url' => env('DB_URL_AULA'),
             'host' => env('DB_HOST_AULA', '127.0.0.1'),

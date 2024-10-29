@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $connection = 'capacitaciones'; // Usar la base de datos de capacitaciones
+    protected $connection = 'mysql_capacitaciones'; // Usar la base de datos de capacitaciones
     /**
      * Run the migrations.
      */
