@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 
 class User extends Authenticatable
 {
@@ -19,7 +20,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    use  AuthenticationLoggable;
 
     // Conexión a la base de datos por defecto (usuarios)
     protected $connection = 'mysql'; // Usar la base de datos de usuarios
@@ -99,5 +100,10 @@ class User extends Authenticatable
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function activeSession()
+    {
+        return $this->hasOne(ActiveSession::class);
     }
 }

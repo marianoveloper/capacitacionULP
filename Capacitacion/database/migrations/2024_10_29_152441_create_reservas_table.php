@@ -23,8 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('capacitacion_id');
             $table->unsignedBigInteger('user_id');
             $table->enum('estado',['activo','pendiente','baja']);
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('capacitacion_id')->references('id')->on(  'capacitacion')->onDelete('cascade');
+            $table->foreign('capacitacion_id')->references('id')->on('capacitaciones')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $connection = 'mysql_capacitaciones'; // Usar la base de datos de capacitaciones
+    protected $connection = 'mysql'; // Usar la base de datos de usuarios
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('tipo_capacitacion', function (Blueprint $table) {
+        Schema::create('active_sessions', function (Blueprint $table) {
             $table->id();
-            $table->enum('tipo',['interna','cerrada','publica']);
-            $table->enum('organizacionTipo',['propia','externa']);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('session_id');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipo_capacitacion');
+        Schema::dropIfExists('active_sessions');
     }
 };

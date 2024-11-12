@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('geoposicion');
             $table->enum('estado', ['activo', 'baja'])->default('activo');
             $table->unsignedBigInteger('localidad_id');
-            $table->foreign('localidad_id')->references('id')->on('localidades');
+            $table->foreign('localidad_id')->references('id')->on('localidades')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -14,7 +14,9 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
         "livewire/livewire": "^3.0",
-        "rappasoft/laravel-livewire-tables": "^3.4"
+        "rappasoft/laravel-authentication-log": "^4.0",
+        "rappasoft/laravel-livewire-tables": "^3.4",
+        "torann/geoip": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

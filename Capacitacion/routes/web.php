@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\GoogleController;
+
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Middleware\CheckSingleDeviceLogin;
+//use App\Http\Controllers\GoogleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,4 +31,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::controller(GoogleController::class)->group(function(){
     Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
     Route::get('auth/google/callback', 'handleGoogleCallback');
+});
+
+Route::middleware(['auth',CheckSingleDeviceLogin::class])->group(function(){
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });

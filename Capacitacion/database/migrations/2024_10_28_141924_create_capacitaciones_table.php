@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('url_inscripcion');
             $table->enum ('modalidad', ['virtual', 'presencial', 'hibrido'])->default('virtual');
             $table->enum ('estado', ['activo', 'pendiente','baja'])->default('pendiente');
+            $table->unsignedBigInteger('user_id');//USUARIO
             $table->unsignedBigInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias');
-            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
