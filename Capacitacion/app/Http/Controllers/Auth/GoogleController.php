@@ -23,7 +23,10 @@ class GoogleController extends Controller
                 $finduser = User::where('google_id', $user->id)->first();//Buscar el usuario
                      if ($finduser)
                       {
-                            Auth::login($finduser); $this->manageActiveSession($finduser);
+
+                        $this->manageActiveSession($finduser);
+                            Auth::login($finduser);
+
                         } else { $newUser = User::create([
                                 'name' => $user->name,
                                 'email' => $user->email,
@@ -40,13 +43,17 @@ class GoogleController extends Controller
 
             private function manageActiveSession($user)
              {
+
                 $currentSessionId = Session::getId();//Obtener el id de la sesion actual
                 $activeSession = ActiveSession::where('user_id', $user->id)->first();//Buscar la sesion activa del usuario
+
                  if ($activeSession)
                   {
-                        $activeSession->session_id = $currentSessionId; $activeSession->save();//Actualizar la sesion activa
+                        $activeSession->session_id = $currentSessionId;//Actualizar el id de la sesion
+                         $activeSession->save();//Actualizar la sesion activa
 
                     } else {
+
                                 ActiveSession::create([
                                                         'user_id' => $user->id,
                                                           'session_id' => $currentSessionId, ]);
