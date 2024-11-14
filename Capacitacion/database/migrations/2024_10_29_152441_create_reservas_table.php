@@ -14,17 +14,15 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_ini_inscripcion');
-            $table->date('fecha_fin_inscripcion');
+            $table->morphs('reservable');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->dateTime('hora_inicio');
-            $table->dateTime('hora_fin');
-            $table->unsignedBigInteger('capacitacion_id');
+            $table->dateTime('hora_fin')->nullable();
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->dateTime('reserva_at');
             $table->enum('estado',['activo','pendiente','baja']);
-            $table->foreign('capacitacion_id')->references('id')->on('capacitaciones')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

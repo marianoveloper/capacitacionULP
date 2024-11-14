@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Middleware\CheckSingleDeviceLogin;
 //use App\Http\Controllers\GoogleController;
@@ -39,3 +39,7 @@ Route::middleware(['auth',CheckSingleDeviceLogin::class])->group(function(){
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');//Ruta para cerrar sesion

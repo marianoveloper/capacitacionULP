@@ -15,6 +15,10 @@ class Capacitacion extends Model
         return $this->belongsTo(Categoria::class);
     }
 
+  public function reservas(){
+     return $this->morphMany(Reserva::class, 'reservable');
+  }
+
     protected $casts = [
         'estado' => 'App\Enums\Enums\Estado',
         'modalidad' => 'App\Enums\Enums\Modalidad',

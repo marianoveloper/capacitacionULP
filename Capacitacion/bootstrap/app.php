@@ -10,9 +10,17 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+
+        using: function(\Illuminate\Routing\Router $router) {
+
+
+
+        }
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'checkSingleDeviceLogin' => \App\Http\Middleware\CheckSingleDeviceLogin::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

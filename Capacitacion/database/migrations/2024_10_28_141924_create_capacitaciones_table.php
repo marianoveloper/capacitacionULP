@@ -18,6 +18,10 @@ return new class extends Migration
             $table->text('descripcion');
             $table->string('duracion', 100);
             $table->string('cupo', 100);
+            $table->date('fecha_ini_inscripcion');
+            $table->date('fecha_fin_inscripcion');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->string('url_inscripcion');
             $table->enum ('modalidad', ['virtual', 'presencial', 'hibrido'])->default('virtual');
             $table->enum ('estado', ['activo', 'pendiente','baja'])->default('pendiente');

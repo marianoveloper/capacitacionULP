@@ -23,17 +23,20 @@ class GoogleController extends Controller
                 $finduser = User::where('google_id', $user->id)->first();//Buscar el usuario
                      if ($finduser)
                       {
-
-                        $this->manageActiveSession($finduser);
-                            Auth::login($finduser);
-
-                        } else { $newUser = User::create([
+                            Auth::login($finduser);//Iniciar sesion con el usuario
+                            $this->manageActiveSession($finduser);//Crear una nueva sesion activa
+                        }
+                        else {
+                                $newUser = User::create([
                                 'name' => $user->name,
                                 'email' => $user->email,
                                 'google_id' => $user->id,
                                 'password' => bcrypt('password'), ]);
-                                    Auth::login($newUser); $this->manageActiveSession($newUser);//Crear un nuevo usuario
-                             } return redirect()->intended('dashboard');
+
+                                    Auth::login($newUser); //Iniciar sesion con el nuevo usuario
+                                    $this->manageActiveSession($newUser);//Crear un nuevo usuario
+
+                             } return redirect()->intended('dashboard');//Redirigir al usuario a la pagina de inicio
             } catch (\Exception $e)
                 {
                     return redirect()->route('login')->with('error', 'Google login failed');//Si falla el inicio de sesion con Google
@@ -56,7 +59,7 @@ class GoogleController extends Controller
 
                                 ActiveSession::create([
                                                         'user_id' => $user->id,
-                                                          'session_id' => $currentSessionId, ]);
+                                                          'session_id' => $currentSessionId, ]);//Crear una nueva sesion activa
                              }
              }
 }

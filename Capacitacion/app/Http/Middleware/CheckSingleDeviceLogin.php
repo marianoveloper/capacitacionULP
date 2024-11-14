@@ -17,9 +17,9 @@ class CheckSingleDeviceLogin
             $activeSession = ActiveSession::where('user_id', $user->id)->first();//Buscar la sesion activa del usuario
 
             if ($activeSession) {
-                if ($activeSession->session_id !== $currentSessionId) {
-                    Auth::logout();
-                    return redirect()->route('login')->with('error', 'Tu sesión ha sido cerrada porque iniciaste sesión en otro dispositivo.');
+                if ($activeSession->session_id !== $currentSessionId) { //Si la sesion activa no es igual a la sesion actual
+                    Auth::logout();//Cerrar la sesion actual
+                    return redirect()->route('login')->with('error', 'Tu sesión ha sido cerrada porque iniciaste sesión en otro dispositivo.');//Cerrar la sesion actual
                 }
             } else {
                 ActiveSession::create([
