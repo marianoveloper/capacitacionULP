@@ -21,6 +21,7 @@ class GoogleController extends Controller
         try {
                 $user = Socialite::driver('google')->user();//Obtener los datos del usuario
                 $finduser = User::where('google_id', $user->id)->first();//Buscar el usuario
+
                      if ($finduser)
                       {
                             Auth::login($finduser);//Iniciar sesion con el usuario
@@ -46,12 +47,14 @@ class GoogleController extends Controller
 
             private function manageActiveSession($user)
              {
-
+dd("llego");
                 $currentSessionId = Session::getId();//Obtener el id de la sesion actual
                 $activeSession = ActiveSession::where('user_id', $user->id)->first();//Buscar la sesion activa del usuario
-
+                dd($activeSession);
                  if ($activeSession)
                   {
+                    dd($activeSession);
+                         $activeSession->delete();//Eliminar la sesion activa
                         $activeSession->session_id = $currentSessionId;//Actualizar el id de la sesion
                          $activeSession->save();//Actualizar la sesion activa
 

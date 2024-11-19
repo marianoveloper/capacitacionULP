@@ -14,10 +14,7 @@ class Reserva extends Model
     protected $fillable = [
         'reservable_type',
         'reservable_id',
-        'fecha_inicio',
-        'fecha_fin',
-        'hora_inicio',
-        'hora_fin',
+
         'user_id',
         'reserva_at',
         'estado',
@@ -26,4 +23,9 @@ class Reserva extends Model
     public function reservable(){
         return $this->morphTo();
     }
+
+  public function aulas()
+  {
+      return $this->morphToMany(Aula::class, 'reservable','aula_reservable');//Relacion de muchos a muchos con la tabla aulas - una aula puede tener muchas reservas
+  }
 }
