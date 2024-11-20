@@ -14,8 +14,8 @@ class Role extends Model
      }
 
      // Relación con los permisos binarios (una relación uno a uno o uno a muchos)
-     public function permissions()
+     /**public function permissions()
      {
          return $this->hasMany(Permission::class);
-     }
+     }**/
 }
