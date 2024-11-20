@@ -10,10 +10,10 @@ class Capacitacion extends Model
     protected $table = 'capacitaciones';
     protected $fillable = ['nombre', 'descripcion', 'duracion', 'cupo', 'url_inscripcion', 'modalidad', 'estado', 'categoria_id'];
 
-    public function categoria()
-    {
-        return $this->belongsTo(Categoria::class);
-    }
+   public function categoria(){
+
+    return $this->belongsTo(Categoria::class);//Relacion de uno a muchos con la tabla categorias - una capacitacion puede tener una categoria
+   }
 
   public function reservas(){
      return $this->morphMany(Reserva::class, 'reservable');
