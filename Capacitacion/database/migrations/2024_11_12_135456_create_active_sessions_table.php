@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('session_id');
+            $table->timestamp('expires_at')->nullable(); // Nueva columna para la fecha de caducidad
             $table->timestamps();
         });
     }

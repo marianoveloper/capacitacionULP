@@ -46,23 +46,23 @@ class GoogleController extends Controller
 
 
             private function manageActiveSession($user)
-             {
-dd("llego");
-                $currentSessionId = Session::getId();//Obtener el id de la sesion actual
-                $activeSession = ActiveSession::where('user_id', $user->id)->first();//Buscar la sesion activa del usuario
-                dd($activeSession);
-                 if ($activeSession)
-                  {
-                    dd($activeSession);
-                         $activeSession->delete();//Eliminar la sesion activa
-                        $activeSession->session_id = $currentSessionId;//Actualizar el id de la sesion
-                         $activeSession->save();//Actualizar la sesion activa
+{
+    $currentSessionId = Session::getId(); // Obtener el id de la sesión actual
+    $activeSession = ActiveSession::where('user_id', $user->id)->first(); // Buscar la sesión activa del usuario
 
-                    } else {
+    $expiresAt = now()->addHours(2); // Establecer la fecha de caducidad a 2 horas desde ahora
 
-                                ActiveSession::create([
-                                                        'user_id' => $user->id,
-                                                          'session_id' => $currentSessionId, ]);//Crear una nueva sesion activa
-                             }
-             }
+    if ($activeSession) {
+        $activeSession->delete(); // Eliminar la sesión activa
+        $activeSession->session_id = $currentSessionId; // Actualizar el id de la sesión
+        $activeSession->expires_at = $expiresAt; // Actualizar la fecha de caducidad
+        $activeSession->save(); // Guardar la sesión activa
+    } else {
+        ActiveSession::create([
+            'user_id' => $user->id,
+            'session_id' => $currentSessionId,
+            'expires_at' => $expiresAt, // Establecer la fecha de caducidad
+        ]); // Crear una nueva sesión activa
+    }
+}
 }
